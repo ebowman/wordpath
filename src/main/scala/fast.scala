@@ -22,11 +22,10 @@ object Fast extends App {
   }
 
   val queue = new LinkedBlockingQueue[String]
-
-  val bits = Vector().par ++ io.Source.fromFile(args(0)).getLines().map(_.split("\t"))
-  bits.map(pair => solveAnyShortestBFS(pair(0), pair(1))).seq.foreach {
+  val pairs = Vector().par ++ io.Source.fromFile(args(0)).getLines().map(_.split("\t"))
+  pairs.map(pair => solveAnyShortestBFS(pair(0), pair(1))).seq.foreach {
     case (result: Seq[_]) =>
-      queue.put(result.take(1) + "\t" + result.drop(1).take(1))
+      queue.put(result.mkString(" -> "))
   }
   queue.put("done")
   val executor = Executors.newSingleThreadExecutor
@@ -54,11 +53,8 @@ object Fast extends App {
   executor.shutdown()
 
   def solveAnyShortestBFS(start: String, target: String): Seq[String] = {
-    val visited = new java.util.HashSet[String]() {
-      {
-        add(start);
-      }
-    }
+    val visited = new java.util.HashSet[String]()
+    visited.add(start)
     @tailrec
     def recurse(paths: Seq[Seq[String]]): Seq[String] = {
       val nextPaths = for {
@@ -82,5 +78,6 @@ object Fast extends App {
 
   def diff(a: String, b: String): Int = (0 until a.length).map(i => if (a(i) == b(i)) 0 else 1).sum
 
-  def pieces(word: String) = Seq("_" + word.drop(1), word.take(1) + "_" + word.drop(2), word.take(2) + "_" + word.drop(3), word.take(3) + "_")
+  def pieces(word: String) =
+    Seq("_" + word.drop(1), word.take(1) + "_" + word.drop(2), word.take(2) + "_" + word.drop(3), word.take(3) + "_")
 }
