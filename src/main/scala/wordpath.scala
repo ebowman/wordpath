@@ -43,6 +43,7 @@ object WordPath extends App {
       (word, other)
     }
 
+    // Map[String, Set[(String, String)]]
     val lookup: Map[String, Set[String]] = allPairs.groupBy(_._1).map(a => a._1 -> a._2.map(_._2))
   }
   */
@@ -54,6 +55,9 @@ object WordPath extends App {
     println(pretty(time("solveAnyShortestBFS")(solveAnyShortestBFS(start, finish))))
     println(pretty(time("solveAnyShortestBFSAndrew")(solveAnyShortestBFSAndrew(start, finish))))
   }
+
+  solveAll(args(0), args(1))
+  sys.exit(0);
 
   // println(solveAll("head", "tail"))
   // sys.exit()
@@ -208,7 +212,7 @@ object WordPath extends App {
         next <- lookup(path.head) if !visited.contains(next)
       } yield {
         visited += next
-        if (diff(next, target) == 0) {
+        if (next == target) {
           return Some(next +: path)
         } else {
           val solution = recurse(next +: path)
