@@ -10,7 +10,6 @@ object Fast extends App {
   import Solvers.solveAnyShortestBFS
 
   val queue = new LinkedBlockingQueue[String]
-  val builder = new StringBuilder
   val pairs = Vector().par ++ io.Source.fromFile(args(0)).getLines().map(_.split("\t"))
   pairs.map(pair => solveAnyShortestBFS(pair(0), pair(1))).seq.foreach {
     case (result: Seq[_]) =>
