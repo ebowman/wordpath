@@ -1,0 +1,3 @@
+sbt package-dist
+time java -server -Xmx1g -jar dist/wordpath-0.0.1/wordpath_2.9.1-0.0.1.jar pairs.txt
+
