@@ -1,4 +1,7 @@
+
 name := "wordpath"
+
+organization := "gilt.com"
 
 version := "0.0.1"
 
@@ -13,5 +16,7 @@ scalacOptions ++= Seq("-deprecation", "-unchecked", "-optimize")
 
 mainClass in (Compile, packageBin) := Some("Fast") 
 
-seq(com.twitter.sbt.StandardProject.newSettings: _*)
+seq(com.twitter.sbt.GitProject.gitSettings: _*)
+
+seq(com.twitter.sbt.PackageDist.newSettings: _*)
 
