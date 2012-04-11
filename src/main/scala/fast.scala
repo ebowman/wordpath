@@ -7,11 +7,11 @@ import java.util.concurrent.{Executors, LinkedBlockingQueue}
 object Fast extends App {
   implicit val lookup = Dictionary.lookup
 
-  import Solvers.solveAnyShortestBFS
+  val solver = Solvers.solveAnyShortestBFSAndrew _
 
   val queue = new LinkedBlockingQueue[String]
   val pairs = Vector().par ++ io.Source.fromFile(args(0)).getLines().map(_.split("\t"))
-  pairs.map(pair => solveAnyShortestBFS(pair(0), pair(1))).seq.foreach {
+  pairs.map(pair => solver(pair(0), pair(1))).seq.foreach {
     case (result: Seq[_]) =>
       queue.put(result.mkString(" -> "))
   }

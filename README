@@ -1,9 +1,9 @@
 $ sbt package-dist
 $ time java -server -jar dist/wordpath-0.0.1/wordpath_2.9.1-0.0.1.jar pairs.txt 
 
-real 0m50.402s
-user 5m49.416s
-sys  0m1.492s
+real 0m48.894s
+user 6m8.053s
+sys  0m1.557s
 
 (Fastest time so far)
 
